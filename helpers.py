@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def load_data(path="data/sales_data.csv"):
@@ -67,3 +68,19 @@ def print_quality_report(report):
     print(f"Total removed:              {removed}")
     print(f"Dates reformatted:          {report['dates_reformatted']}")
     print(f"Clean rows remaining:       {report['rows_clean']}")
+
+
+def save_titled_chart(series, kind, title, xlabel, ylabel, filename, color="steelblue"):
+    """Plot a pandas Series, add title/labels, save to charts/, and show it."""
+    plt.figure(figsize=(8, 5))
+    if kind == "bar":
+        series.plot(kind="bar", color=color)
+        plt.xticks(rotation=45)
+    elif kind == "line":
+        series.plot(kind="line", marker="o", color=color)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.tight_layout()
+    plt.savefig(f"charts/{filename}")
+    plt.show()
